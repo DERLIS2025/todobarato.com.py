@@ -1,2 +1,2 @@
 export default function Page(){return <Info title="Política de cambios" text="Los cambios se gestionan dentro del plazo informado, con producto sin uso, empaque y comprobante. Los casos por falla se evalúan con soporte."/>}
-function Info({title,text}:{title:string;text:string}){return <div className="container-page mt-8"><section className="card p-8"><h1 className="text-3xl font-black">{title}</h1><p className="mt-4 max-w-3xl text-textSecondary">{text}</p></section></div>}
+function Info({title,text}:{title:string;text:string}){return <div className="container-page mt-8"><section className="card p-8"><h1 className="text-3xl font-black">{title}</h1><p className="mt-4 max-w-3xl text-primaryDark/70">{text}</p></section></div>}
