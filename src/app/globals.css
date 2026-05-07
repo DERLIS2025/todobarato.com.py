@@ -33,5 +33,5 @@ body {
 }
 
 .input {
-  @apply w-full rounded-xl border border-surfaceMuted bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight/50;
+  @apply w-full rounded-xl border border-surfaceMuted bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#A1C6EA]/50;
 }
