@@ -1,0 +1,15 @@
+export const adminNavigation = [
+  { label: "Dashboard", href: "/admin/dashboard", icon: "📊" },
+  { label: "Productos", href: "/admin/productos", icon: "📦" },
+  { label: "Categorías", href: "/admin/categorias", icon: "🗂️" },
+  { label: "Banners", href: "/admin/banners", icon: "🖼️" },
+  { label: "Home", href: "/admin/home", icon: "🏠" },
+  { label: "Promociones", href: "/admin/promociones", icon: "🏷️" },
+  { label: "Pedidos", href: "/admin/pedidos", icon: "🧾" },
+  { label: "Clientes", href: "/admin/clientes", icon: "👥" },
+  { label: "Cupones", href: "/admin/cupones", icon: "🎟️" },
+  { label: "Inventario", href: "/admin/inventario", icon: "📋" },
+  { label: "SEO", href: "/admin/seo", icon: "🔎" },
+  { label: "Configuración", href: "/admin/configuracion", icon: "⚙️" },
+  { label: "Usuarios", href: "/admin/usuarios", icon: "🔐" },
+];
