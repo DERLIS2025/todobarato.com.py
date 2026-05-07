@@ -21,13 +21,15 @@ export default function NewBannerPage() {
             <BannerImageField
               name="imageFile"
               label="Imagen de escritorio"
-              helper="Recomendado: 1920 x 900 px. Ideal para banners horizontales amplios."
+              helper="Recomendado: 929 x 556 px. Proporción exacta para el hero desktop."
+              aspectClassName="aspect-[929/556]"
             />
 
             <BannerImageField
               name="mobileImageFile"
               label="Imagen mobile"
-              helper="Recomendado: 600 x 480 px. Si queda vacío, se usará la imagen desktop."
+              helper="Recomendado: 600 x 480 px. Proporción exacta para mobile."
+              aspectClassName="aspect-[600/480]"
             />
           </div>
 

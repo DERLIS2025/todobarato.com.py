@@ -38,7 +38,8 @@ export default async function EditBannerPage({
               name="imageFile"
               currentName="currentImage"
               label="Imagen de escritorio"
-              helper="Recomendado: 1920 x 900 px. Ideal para banners horizontales amplios."
+              helper="Recomendado: 929 x 556 px. Proporción exacta para el hero desktop."
+              aspectClassName="aspect-[929/556]"
               defaultValue={banner.image}
             />
 
@@ -46,7 +47,8 @@ export default async function EditBannerPage({
               name="mobileImageFile"
               currentName="currentMobileImage"
               label="Imagen mobile"
-              helper="Recomendado: 600 x 480 px. Si queda vacío, se usará la imagen desktop."
+              helper="Recomendado: 600 x 480 px. Proporción exacta para mobile."
+              aspectClassName="aspect-[600/480]"
               defaultValue={banner.mobileImage}
             />
           </div>

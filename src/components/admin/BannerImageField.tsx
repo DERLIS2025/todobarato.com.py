@@ -8,6 +8,7 @@ type BannerImageFieldProps = {
   helper: string;
   currentName?: string;
   defaultValue?: string | null;
+  aspectClassName?: string;
 };
 
 export function BannerImageField({
@@ -16,13 +17,16 @@ export function BannerImageField({
   helper,
   currentName,
   defaultValue = "",
+  aspectClassName = "aspect-[929/556]",
 }: BannerImageFieldProps) {
   const [preview, setPreview] = useState(defaultValue ?? "");
 
   return (
     <label className="grid gap-3 rounded-2xl border border-borderSoft bg-white p-4">
       <div>
-        <span className="block text-sm font-black text-primaryDark">{label}</span>
+        <span className="block text-sm font-black text-primaryDark">
+          {label}
+        </span>
         <span className="mt-1 block text-xs font-semibold text-textSecondary">
           {helper}
         </span>
@@ -49,15 +53,17 @@ export function BannerImageField({
         }}
       />
 
-      <div className="overflow-hidden rounded-xl border border-borderSoft bg-surface">
+      <div
+        className={`overflow-hidden rounded-xl border border-borderSoft bg-surface ${aspectClassName}`}
+      >
         {preview ? (
           <img
             src={preview}
             alt={label}
-            className="h-40 w-full object-cover"
+            className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-40 items-center justify-center text-sm font-bold text-textSecondary">
+          <div className="flex h-full items-center justify-center text-sm font-bold text-textSecondary">
             Preview de imagen
           </div>
         )}

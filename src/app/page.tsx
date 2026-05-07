@@ -4,13 +4,18 @@ import { Newsletter } from "@/components/home/Newsletter";
 import { ProductSection } from "@/components/home/ProductSection";
 import { PromoBanners } from "@/components/home/PromoBanners";
 import { TrustBadges } from "@/components/home/TrustBadges";
-import { products } from "@/data/products";
 import { getHomeSettings, isEnabled } from "@/lib/admin/homeSettings";
+import { getHeroBanner } from "@/lib/public/heroBanner";
+import { getHomeProductSections } from "@/lib/public/homeProducts";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const settings = await getHomeSettings();
+  const [settings, heroBanner, productSections] = await Promise.all([
+    getHomeSettings(),
+    getHeroBanner(),
+    getHomeProductSections(),
+  ]);
 
   return (
     <>
@@ -22,6 +27,7 @@ export default async function Home() {
         primaryHref={settings.heroPrimaryHref}
         secondaryLabel={settings.heroSecondaryLabel}
         secondaryHref={settings.heroSecondaryHref}
+        heroBanner={heroBanner}
       />
 
       {isEnabled(settings.showPromoBanners) && <PromoBanners />}
@@ -30,28 +36,31 @@ export default async function Home() {
 
       {isEnabled(settings.showDealOfDay) && <DealOfTheDay />}
 
-      {isEnabled(settings.showNewProducts) && (
-        <ProductSection
-          title="Nuevos ingresos"
-          href="/nuevos-productos"
-          products={products.filter((product) => product.isNew).slice(0, 4)}
-        />
-      )}
+      {isEnabled(settings.showNewProducts) &&
+        productSections.newProducts.length > 0 && (
+          <ProductSection
+            title="Nuevos ingresos"
+            href="/nuevos-productos"
+            products={productSections.newProducts}
+          />
+        )}
 
-      {isEnabled(settings.showBestSellers) && (
-        <ProductSection
-          title="Más vendidos"
-          href="/mas-vendidos"
-          products={[...products].sort((a, b) => b.sold - a.sold).slice(0, 4)}
-        />
-      )}
+      {isEnabled(settings.showBestSellers) &&
+        productSections.bestSellers.length > 0 && (
+          <ProductSection
+            title="Más vendidos"
+            href="/mas-vendidos"
+            products={productSections.bestSellers}
+          />
+        )}
 
-      {isEnabled(settings.showFeaturedProducts) && (
-        <ProductSection
-          title="Productos destacados"
-          products={products.filter((product) => product.featured).slice(0, 4)}
-        />
-      )}
+      {isEnabled(settings.showFeaturedProducts) &&
+        productSections.featuredProducts.length > 0 && (
+          <ProductSection
+            title="Productos destacados"
+            products={productSections.featuredProducts}
+          />
+        )}
 
       {isEnabled(settings.showNewsletter) && <Newsletter />}
     </>
