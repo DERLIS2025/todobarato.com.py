@@ -1,0 +1,1 @@
+export function PriceFilter(){return <div><h4 className="mb-2 font-bold">Precio</h4><div className="grid grid-cols-2 gap-2"><input className="input" placeholder="Mín"/><input className="input" placeholder="Máx"/></div></div>}
