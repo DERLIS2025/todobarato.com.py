@@ -14,15 +14,15 @@ export function HeroMarketplace() {
 
         <div className="relative z-10">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-promo">
-            Campaña marketplace
+            Ofertas todos los días
           </p>
 
-          <h1 className="mt-3 max-w-2xl text-4xl font-black leading-tight lg:text-6xl">
-            Miles de precios bajos para tu casa, fiesta y tecnología.
+          <h1 className="mt-3 max-w-3xl text-4xl font-black leading-tight lg:text-6xl">
+            Todo para tu casa, tus fiestas y tu día a día al mejor precio.
           </h1>
 
           <p className="mt-4 max-w-xl text-lg text-white/90">
-            Comprá por categoría, compará opciones y recibí en todo Paraguay.
+            Comprá bazar, electrónica, cotillón y productos para el hogar con precios bajos y envío a todo Paraguay.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
