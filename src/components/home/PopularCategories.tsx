@@ -1,4 +1,3 @@
-cat > src/components/home/PopularCategories.tsx <<'EOF'
 import Link from "next/link";
 import { categories } from "@/data/categories";
 import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
@@ -31,7 +30,7 @@ export function PopularCategories() {
         </HorizontalScroll>
       </div>
 
-      <div className="hidden gap-4 sm:grid-cols-2 lg:grid lg:grid-cols-4">
+      <div className="hidden gap-4 lg:grid lg:grid-cols-4">
         {categories.map((category) => (
           <Link
             href={`/categoria/${category.slug}`}
@@ -53,4 +52,3 @@ export function PopularCategories() {
     </section>
   );
 }
-EOF

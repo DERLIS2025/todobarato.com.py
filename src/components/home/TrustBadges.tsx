@@ -1,4 +1,3 @@
-cat > src/components/home/TrustBadges.tsx <<'EOF'
 const badges = [
   "🚚 Envíos a todo Paraguay",
   "🏬 Retiro en tienda",
@@ -20,4 +19,3 @@ export function TrustBadges() {
     </section>
   );
 }
-EOF

@@ -1,4 +1,3 @@
-cat > src/components/home/PromoBanners.tsx <<'EOF'
 import Link from "next/link";
 import { promoBanners } from "@/data/banners";
 import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
@@ -44,4 +43,3 @@ export function PromoBanners() {
     </section>
   );
 }
-EOF
