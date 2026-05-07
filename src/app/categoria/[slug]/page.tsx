@@ -1,2 +1,40 @@
-import Link from "next/link";import { notFound } from "next/navigation";import { CategoryFilters } from "@/components/filters/CategoryFilters";import { SortDropdown } from "@/components/filters/SortDropdown";import { ProductCard } from "@/components/product/ProductCard";import { categories } from "@/data/categories";import { getByCategory, sortProducts } from "@/lib/productUtils";
-export default async function CategoryPage({params,searchParams}:{params:Promise<{slug:string}>;searchParams:Promise<{orden?:string;vista?:string}>}){const {slug}=await params;const sp=await searchParams;const category=categories.find(c=>c.slug===slug);if(!category)notFound();const list=sortProducts(getByCategory(slug),sp.orden);const mode=sp.vista==='lista'?'list':'grid';return <div className="container-page mt-8"><nav className="text-sm"><Link href="/">Inicio</Link> / <span>{category.name}</span></nav><div className={`mt-4 rounded-3xl bg-gradient-to-r ${category.color} p-8 text-white`}><h1 className="text-4xl font-black">{category.icon} {category.name}</h1><p className="mt-2 max-w-2xl">{category.description}</p></div><div className="mt-6 grid gap-6 lg:grid-cols-[270px_1fr]"><CategoryFilters/><section><form className="mb-4 flex flex-wrap items-center justify-between gap-3"><p className="font-bold">{list.length} productos encontrados</p><div className="flex gap-2"><SortDropdown/><Link className="btn-secondary" href="?vista=grilla">Grilla</Link><Link className="btn-secondary" href="?vista=lista">Lista</Link></div></form><div className={mode==='list'?"grid gap-4":"grid gap-4 sm:grid-cols-2 xl:grid-cols-3"}>{list.map(p=><ProductCard product={p} mode={mode} key={p.id}/>)}</div><div className="mt-8 flex justify-center gap-2"><button className="btn-secondary">←</button><button className="btn-primary">1</button><button className="btn-secondary">2</button><button className="btn-secondary">→</button></div></section></div></div>}
+import { notFound } from "next/navigation";
+import { ProductGrid } from "@/components/product/ProductGrid";
+import { getPublicProductsByCategorySlug } from "@/lib/public/products";
+
+export const dynamic = "force-dynamic";
+
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
+  const { category, products } = await getPublicProductsByCategorySlug(slug);
+
+  if (!category) {
+    notFound();
+  }
+
+  return (
+    <main className="container-page py-8">
+      <div className="mb-6">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-cta">
+          Categoría
+        </p>
+        <h1 className="mt-1 text-3xl font-black text-primaryDark">
+          {category.name}
+        </h1>
+
+        {category.description && (
+          <p className="mt-2 max-w-2xl text-textSecondary">
+            {category.description}
+          </p>
+        )}
+      </div>
+
+      <ProductGrid products={products} />
+    </main>
+  );
+}
