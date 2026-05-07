@@ -1,0 +1,112 @@
+// Prisma schema for Todobarato.com.py admin database
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+  OUT_OF_STOCK
+}
+
+enum BannerStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  icon        String?
+  description String?
+  image       String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+
+  products    Product[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Product {
+  id              String        @id @default(cuid())
+  name            String
+  slug            String        @unique
+  brand           String?
+  sku             String?
+  description     String?
+  longDescription String?
+
+  price           Int
+  oldPrice        Int?
+  stock           Int           @default(0)
+
+  image           String?
+  gallery         String[]      @default([])
+  badges          String[]      @default([])
+  variants        String[]      @default([])
+  colors          String[]      @default([])
+
+  rating          Float         @default(5)
+  reviews         Int           @default(0)
+  sold            Int           @default(0)
+
+  isNew           Boolean       @default(false)
+  featured        Boolean       @default(false)
+  status          ProductStatus @default(ACTIVE)
+
+  seoTitle        String?
+  seoDescription  String?
+
+  categoryId      String
+  category        Category      @relation(fields: [categoryId], references: [id])
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Banner {
+  id          String       @id @default(cuid())
+  title       String
+  text        String?
+  href        String?
+  image       String?
+  mobileImage String?
+  ctaLabel    String?
+  location    String       @default("home")
+  color       String?
+  order       Int          @default(0)
+  status      BannerStatus @default(ACTIVE)
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model HomeSection {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  title       String
+  subtitle    String?
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
