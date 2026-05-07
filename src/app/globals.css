@@ -4,15 +4,31 @@
 
 :root {
   color-scheme: light;
-  --color-primary-dark: #04080F;
-  --color-primary: #507DBC;
-  --color-primary-light: #A1C6EA;
-  --color-surface-blue: #BBD1EA;
-  --color-surface-muted: #DAE3E5;
+
+  /* Todobarato commercial palette */
+  --color-primary-dark: #0F172A;
+  --color-primary: #2563EB;
+  --color-primary-light: #DBEAFE;
+
+  --color-cta: #F97316;
+  --color-promo: #FACC15;
+
+  --color-bg: #FFFFFF;
+  --color-surface: #F8FAFC;
+  --color-border: #E2E8F0;
+  --color-text-secondary: #475569;
+
+  /* Compatibility aliases for previous Blue Lagoon names */
+  --color-surface-blue: #F8FAFC;
+  --color-surface-muted: #E2E8F0;
+}
+
+html {
+  background: var(--color-bg);
 }
 
 body {
-  background: var(--color-surface-muted);
+  background: var(--color-bg);
   color: var(--color-primary-dark);
 }
 
@@ -24,14 +40,38 @@ body {
   @apply rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white shadow-soft transition hover:bg-primaryDark;
 }
 
+.btn-cta {
+  @apply rounded-xl bg-cta px-4 py-3 text-sm font-bold text-white shadow-soft transition hover:bg-orange-600;
+}
+
 .btn-secondary {
-  @apply rounded-xl border border-surfaceMuted bg-white px-4 py-3 text-sm font-bold text-primaryDark transition hover:border-primary hover:bg-[#A1C6EA]/30 hover:text-primary;
+  @apply rounded-xl border border-borderSoft bg-white px-4 py-3 text-sm font-bold text-primaryDark transition hover:border-primary hover:bg-primaryLight hover:text-primary;
+}
+
+.badge-promo {
+  @apply rounded-full bg-promo px-2.5 py-1 text-xs font-black text-primaryDark;
+}
+
+.badge-offer {
+  @apply rounded-full bg-promo px-2.5 py-1 text-xs font-black text-primaryDark;
+}
+
+.badge-new {
+  @apply rounded-full bg-primary px-2.5 py-1 text-xs font-black text-white;
 }
 
 .card {
-  @apply rounded-2xl border border-surfaceMuted bg-white shadow-soft;
+  @apply rounded-2xl border border-borderSoft bg-white shadow-soft;
 }
 
 .input {
-  @apply w-full rounded-xl border border-surfaceMuted bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-[#A1C6EA]/50;
+  @apply w-full rounded-xl border border-borderSoft bg-white px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primaryLight;
+}
+
+.section-soft {
+  @apply bg-surface;
+}
+
+.text-muted {
+  @apply text-textSecondary;
 }
