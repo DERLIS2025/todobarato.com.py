@@ -1,0 +1,1 @@
+const badges=['🚚 Envíos a todo Paraguay','🏬 Retiro en tienda','🔒 Pagos seguros','💬 Atención por WhatsApp'];export function TrustBadges(){return <section className="container-page mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{badges.map(b=><div className="card p-4 text-center font-black" key={b}>{b}</div>)}</section>}

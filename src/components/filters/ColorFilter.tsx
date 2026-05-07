@@ -1,0 +1,1 @@
+export function ColorFilter(){return <div><h4 className="mb-2 font-bold">Color</h4>{['Negro','Blanco','Multicolor','Gris','Dorado','Rojo'].map(c=><label className="block text-sm" key={c}><input type="checkbox"/> {c}</label>)}</div>}
