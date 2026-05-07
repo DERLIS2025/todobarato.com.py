@@ -1,0 +1,2 @@
+import Link from "next/link";import { promoBanners } from "@/data/banners";
+export function PromoBanners(){return <section className="container-page mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">{promoBanners.map(b=><Link href={b.href} key={b.title} className={`rounded-2xl bg-gradient-to-br ${b.color} p-5 text-white shadow-soft`}><h3 className="text-xl font-black">{b.title}</h3><p className="mt-2 text-sm text-white/90">{b.text}</p><span className="mt-5 inline-block text-sm font-black">Comprar ahora →</span></Link>)}</section>}

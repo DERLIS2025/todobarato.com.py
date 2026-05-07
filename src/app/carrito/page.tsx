@@ -1,0 +1,3 @@
+"use client";
+import Link from "next/link";import { CartItem } from "@/components/cart/CartItem";import { CartSummary } from "@/components/cart/CartSummary";import { useCartStore } from "@/store/cartStore";
+export default function CartPage(){const items=useCartStore(s=>s.items);return <div className="container-page mt-8"><h1 className="text-3xl font-black">Carrito</h1>{items.length===0?<div className="card mt-6 p-10 text-center"><p className="text-lg font-bold">Tu carrito está vacío.</p><Link href="/" className="btn-primary mt-5 inline-block">Continuar comprando</Link></div>:<div className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px]"><div className="grid gap-4">{items.map(i=><CartItem line={i} key={i.product.id}/>)}</div><CartSummary/></div>}</div>}

@@ -1,0 +1,1 @@
+export function SortDropdown(){return <select name="orden" className="input max-w-56"><option value="relevancia">Relevancia</option><option value="vendidos">Más vendidos</option><option value="az">Nombre A-Z</option><option value="za">Nombre Z-A</option><option value="precio-asc">Precio menor a mayor</option><option value="precio-desc">Precio mayor a menor</option></select>}

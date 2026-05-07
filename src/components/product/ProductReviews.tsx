@@ -1,0 +1,2 @@
+import { Product } from "@/data/products";
+export function ProductReviews({product}:{product:Product}){return <div><h3 className="text-xl font-black">Reseñas</h3><p className="mt-3 text-primary">★★★★★ <span className="text-primaryDark/70">{product.rating}/5 basado en {product.reviews} opiniones.</span></p><p className="mt-2 text-sm text-primaryDark/60">“Buen precio, entrega rápida y producto como se describe.”</p></div>}

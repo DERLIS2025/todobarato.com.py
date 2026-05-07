@@ -1,0 +1,1 @@
+export function BrandFilter(){return <div><h4 className="mb-2 font-bold">Marca</h4>{['TechPy','CasaPlus','PartyMix','OrdenYa','KidsLab','AulaPro'].map(b=><label className="block text-sm" key={b}><input type="checkbox"/> {b}</label>)}</div>}

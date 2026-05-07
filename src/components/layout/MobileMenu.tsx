@@ -1,0 +1,3 @@
+"use client";
+import Link from "next/link";import { categories } from "@/data/categories";
+export function MobileMenu({open,onClose}:{open:boolean;onClose:()=>void}){return <div className={`${open?'fixed':'hidden'} inset-0 z-50 bg-black/40 lg:hidden`} onClick={onClose}><aside className="h-full w-80 max-w-[85vw] bg-white p-5" onClick={e=>e.stopPropagation()}><button className="mb-4 text-sm font-bold" onClick={onClose}>✕ Cerrar</button><h3 className="mb-3 text-lg font-black">Todas las categorías</h3><nav className="grid gap-2">{categories.map(c=><Link onClick={onClose} className="rounded-xl border p-3 font-semibold" href={`/categoria/${c.slug}`} key={c.slug}>{c.icon} {c.name}</Link>)}</nav></aside></div>}
