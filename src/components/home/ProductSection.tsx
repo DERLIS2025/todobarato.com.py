@@ -1,4 +1,4 @@
-import type { Product } from "@/lib/types";
+import type { Product } from "@/data/products";
 import { ProductCard } from "@/components/product/ProductCard";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
