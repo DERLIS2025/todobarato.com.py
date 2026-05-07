@@ -9,3 +9,7 @@ npm-debug.log*
 /src/generated/prisma
 .env
 .env.*
+
+# Uploaded banner images
+public/uploads/banners/*
+!public/uploads/banners/.gitkeep

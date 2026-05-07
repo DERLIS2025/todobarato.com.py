@@ -1,44 +1,76 @@
 import Link from "next/link";
-import { promoBanners } from "@/data/banners";
-import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
 
-export function PromoBanners() {
+export const dynamic = "force-dynamic";
+
+async function getActiveBanners() {
+  if (!process.env.DATABASE_URL) {
+    return [];
+  }
+
+  try {
+    const { prisma } = await import("@/lib/db/prisma");
+
+    return prisma.banner.findMany({
+      where: {
+        status: "ACTIVE",
+        location: "home",
+      },
+      orderBy: {
+        order: "asc",
+      },
+    });
+  } catch (error) {
+    console.error("Error loading home banners:", error);
+    return [];
+  }
+}
+
+export async function PromoBanners() {
+  const banners = await getActiveBanners();
+
+  if (!banners.length) {
+    return null;
+  }
+
   return (
     <section className="container-page mt-5">
-      <div className="lg:hidden">
-        <HorizontalScroll>
-          {promoBanners.map((banner) => (
-            <Link
-              href={banner.href}
-              key={banner.title}
-              className={`min-w-[78%] snap-start rounded-2xl bg-gradient-to-br ${banner.color} p-4 text-white shadow-soft`}
-            >
-              <h3 className="text-lg font-black">{banner.title}</h3>
-              <p className="mt-2 line-clamp-2 text-sm text-white/90">
-                {banner.text}
-              </p>
-              <span className="mt-4 inline-block text-sm font-black">
-                Comprar ahora →
-              </span>
-            </Link>
-          ))}
-        </HorizontalScroll>
-      </div>
+      <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-2 lg:overflow-visible">
+        {banners.map((banner) => {
+          const image = banner.image;
+          const mobileImage = banner.mobileImage || banner.image;
 
-      <div className="hidden gap-4 lg:grid lg:grid-cols-4">
-        {promoBanners.map((banner) => (
-          <Link
-            href={banner.href}
-            key={banner.title}
-            className={`rounded-2xl bg-gradient-to-br ${banner.color} p-5 text-white shadow-soft`}
-          >
-            <h3 className="text-xl font-black">{banner.title}</h3>
-            <p className="mt-2 text-sm text-white/90">{banner.text}</p>
-            <span className="mt-5 inline-block text-sm font-black">
-              Comprar ahora →
-            </span>
-          </Link>
-        ))}
+          if (!image) {
+            return null;
+          }
+
+          const content = (
+            <picture>
+              {mobileImage && (
+                <source media="(max-width: 767px)" srcSet={mobileImage} />
+              )}
+              <img
+                src={image}
+                alt={banner.title}
+                className="h-full w-full object-cover transition duration-300 hover:scale-[1.02]"
+              />
+            </picture>
+          );
+
+          return (
+            <div
+              key={banner.id}
+              className="min-w-[85%] snap-start overflow-hidden rounded-2xl border border-borderSoft bg-white shadow-soft sm:min-w-[70%] lg:min-w-0"
+            >
+              {banner.href ? (
+                <Link href={banner.href} className="block aspect-[16/7]">
+                  {content}
+                </Link>
+              ) : (
+                <div className="aspect-[16/7]">{content}</div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
