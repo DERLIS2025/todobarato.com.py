@@ -1,4 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root{color-scheme:light} body{background:#f8fafc;color:#0f172a} .container-page{@apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8}.btn-primary{@apply rounded-xl bg-brand-600 px-4 py-3 text-sm font-bold text-white shadow-soft transition hover:bg-brand-700}.btn-secondary{@apply rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-800 transition hover:border-brand-500 hover:text-brand-600}.card{@apply rounded-2xl border border-slate-200 bg-white shadow-soft}.input{@apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100}
+
+:root {
+  color-scheme: light;
+  --color-primary-dark: #04080F;
+  --color-primary: #507DBC;
+  --color-primary-light: #A1C6EA;
+  --color-surface-blue: #BBD1EA;
+  --color-surface-muted: #DAE3E5;
+}
+
+body {
+  background: var(--color-surface-muted);
+  color: var(--color-primary-dark);
+}
+
+.container-page {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.btn-primary {
+  @apply rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white shadow-soft transition hover:bg-primaryDark;
+}
+
+.btn-secondary {
+  @apply rounded-xl border border-surfaceMuted bg-white px-4 py-3 text-sm font-bold text-primaryDark transition hover:border-primary hover:bg-primaryLight/30 hover:text-primary;
+}
+
+.card {
+  @apply rounded-2xl border border-surfaceMuted bg-white shadow-soft;
+}
+
+.input {
+  @apply w-full rounded-xl border border-surfaceMuted bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight/50;
+}
