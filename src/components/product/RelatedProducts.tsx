@@ -1,0 +1,2 @@
+import { ProductCard } from "./ProductCard";import { products } from "@/data/products";
+export function RelatedProducts({categorySlug,current}:{categorySlug:string;current:string}){const related=products.filter(p=>p.categorySlug===categorySlug&&p.slug!==current).slice(0,4);return <section className="mt-10"><h2 className="mb-4 text-2xl font-black">Productos relacionados</h2><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map(p=><ProductCard product={p} key={p.id}/>)}</div></section>}

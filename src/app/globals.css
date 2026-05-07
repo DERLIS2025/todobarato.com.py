@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --color-primary-dark: #0F172A;
+  --color-primary: #2563EB;
+  --color-primary-light: #DBEAFE;
+  --color-cta: #F97316;
+  --color-promo: #FACC15;
+  --color-bg: #FFFFFF;
+  --color-surface: #F8FAFC;
+  --color-border: #E2E8F0;
+  --color-text-secondary: #475569;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-primary-dark);
+}
+
+.container-page {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.btn-primary {
+  @apply rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white shadow-soft transition hover:bg-primaryDark;
+}
+
+.btn-cta {
+  @apply rounded-xl bg-cta px-4 py-3 text-sm font-black text-white shadow-soft transition hover:bg-primaryDark;
+}
+
+.btn-secondary {
+  @apply rounded-xl border border-border bg-white px-4 py-3 text-sm font-bold text-primaryDark transition hover:border-primary hover:bg-primaryLight hover:text-primary;
+}
+
+.card {
+  @apply rounded-2xl border border-border bg-white shadow-soft;
+}
+
+.input {
+  @apply w-full rounded-xl border border-border bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primaryLight;
+}
