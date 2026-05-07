@@ -1,3 +1,23 @@
-import type { Metadata } from "next";import "./globals.css";import { TopBar } from "@/components/layout/TopBar";import { Header } from "@/components/layout/Header";import { MegaMenu } from "@/components/layout/MegaMenu";import { Footer } from "@/components/layout/Footer";
-export const metadata: Metadata={title:"Todobarato.com.py | Ecommerce multicategoría",description:"Marketplace paraguayo de bazar, electrónica, cotillón, hogar, juguetería, papelería y ofertas."};
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="es-PY"><body><TopBar/><Header/><MegaMenu/><main>{children}</main><Footer/></body></html>}
+import type { Metadata } from "next";
+import "./globals.css";
+import { PublicLayoutShell } from "@/components/layout/PublicLayoutShell";
+
+export const metadata: Metadata = {
+  title: "Todobarato.com.py",
+  description:
+    "Marketplace paraguayo multicategoría con ofertas para hogar, bazar, electrónica, cotillón y más.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="es">
+      <body>
+        <PublicLayoutShell>{children}</PublicLayoutShell>
+      </body>
+    </html>
+  );
+}
