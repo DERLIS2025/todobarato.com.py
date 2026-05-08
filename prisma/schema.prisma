@@ -121,3 +121,50 @@ model AdminUser {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?  @unique
+  phone     String?  @unique
+  document  String?
+  city      String?
+  address   String?
+  notes     String?
+  isActive  Boolean  @default(true)
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  orderNumber    String      @unique
+  customerId     String?
+  customer       Customer?   @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  status         String      @default("NEW")
+  paymentMethod  String?
+  deliveryMethod String?
+  subtotal       Int         @default(0)
+  shippingCost   Int         @default(0)
+  total          Int         @default(0)
+  notes          String?
+  items          OrderItem[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  productName String
+  sku         String?
+  quantity    Int      @default(1)
+  unitPrice   Int      @default(0)
+  total       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
