@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { AdminPageShell } from "@/components/admin/AdminPageShell";
 import { prisma } from "@/lib/db/prisma";
@@ -102,14 +103,14 @@ export default async function AdminOrdersPage() {
               Módulo
             </p>
             <strong className="mt-2 block text-xl font-black">
-              Base preparada
+              Pedidos reales
             </strong>
           </div>
         </div>
 
         <div className="overflow-hidden rounded-2xl border border-borderSoft bg-white shadow-soft">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[980px] text-sm">
+            <table className="w-full min-w-[1080px] text-sm">
               <thead className="bg-surface text-left text-xs uppercase tracking-wide text-textSecondary">
                 <tr>
                   <th className="px-4 py-3 font-black">Pedido</th>
@@ -119,6 +120,7 @@ export default async function AdminOrdersPage() {
                   <th className="px-4 py-3 font-black">Total</th>
                   <th className="px-4 py-3 font-black">Estado</th>
                   <th className="px-4 py-3 font-black">Fecha</th>
+                  <th className="px-4 py-3 font-black">Acciones</th>
                 </tr>
               </thead>
 
@@ -137,9 +139,7 @@ export default async function AdminOrdersPage() {
                       {order.customer?.phone ?? "-"}
                     </td>
 
-                    <td className="px-4 py-3">
-                      {order._count.items}
-                    </td>
+                    <td className="px-4 py-3">{order._count.items}</td>
 
                     <td className="px-4 py-3 font-black text-primary">
                       {formatPrice(order.total)}
@@ -147,7 +147,9 @@ export default async function AdminOrdersPage() {
 
                     <td className="px-4 py-3">
                       <span
-                        className={`rounded-full px-3 py-1 text-xs font-black ${statusClass(order.status)}`}
+                        className={`rounded-full px-3 py-1 text-xs font-black ${statusClass(
+                          order.status
+                        )}`}
                       >
                         {formatStatus(order.status)}
                       </span>
@@ -156,13 +158,22 @@ export default async function AdminOrdersPage() {
                     <td className="px-4 py-3 text-xs font-bold text-textSecondary">
                       {formatDate(order.createdAt)}
                     </td>
+
+                    <td className="px-4 py-3">
+                      <Link
+                        href={`/admin/pedidos/${order.id}`}
+                        className="rounded-lg bg-primary px-3 py-2 text-xs font-black text-white"
+                      >
+                        Ver detalle
+                      </Link>
+                    </td>
                   </tr>
                 ))}
 
                 {!orders.length && (
                   <tr>
                     <td
-                      colSpan={7}
+                      colSpan={8}
                       className="px-4 py-12 text-center text-sm font-bold text-textSecondary"
                     >
                       Todavía no hay pedidos registrados. El siguiente paso será
