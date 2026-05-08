@@ -4,6 +4,16 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { categories } from "@/data/categories";
 
+const extraMenuItems = [
+  {
+    name: "Sección mayorista",
+    slug: "mayorista",
+    href: "/mayorista",
+    icon: "🛒",
+    highlight: true,
+  },
+];
+
 export function MobileMenu({
   open,
   onClose,
@@ -12,9 +22,7 @@ export function MobileMenu({
   onClose: () => void;
 }) {
   useEffect(() => {
-    if (!open) {
-      return;
-    }
+    if (!open) return;
 
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -24,9 +32,7 @@ export function MobileMenu({
     };
   }, [open]);
 
-  if (!open) {
-    return null;
-  }
+  if (!open) return null;
 
   return (
     <div className="fixed inset-0 z-[90] lg:hidden" aria-modal="true" role="dialog">
@@ -77,35 +83,23 @@ export function MobileMenu({
               </Link>
             ))}
 
-            <Link
-              href="/ofertas"
-              onClick={onClose}
-              className="flex items-center justify-between rounded-2xl border border-borderSoft bg-white px-4 py-3 text-sm font-black text-primaryDark shadow-sm transition hover:border-primary hover:text-primary"
-            >
-              <span className="flex items-center gap-3">
-                <span className="grid h-8 w-8 place-items-center rounded-xl bg-surface text-base">
-                  🔥
+            {extraMenuItems.map((item) => (
+              <Link
+                key={item.slug}
+                href={item.href}
+                onClick={onClose}
+                className="flex items-center justify-between rounded-2xl border border-cta bg-cta px-4 py-3 text-sm font-black text-white shadow-sm transition hover:bg-cta/90"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="grid h-8 w-8 place-items-center rounded-xl bg-white/20 text-base">
+                    {item.icon}
+                  </span>
+                  {item.name}
                 </span>
-                Ofertas
-              </span>
 
-              <span className="text-textSecondary">›</span>
-            </Link>
-
-            <Link
-              href="/nuevos-productos"
-              onClick={onClose}
-              className="flex items-center justify-between rounded-2xl border border-borderSoft bg-white px-4 py-3 text-sm font-black text-primaryDark shadow-sm transition hover:border-primary hover:text-primary"
-            >
-              <span className="flex items-center gap-3">
-                <span className="grid h-8 w-8 place-items-center rounded-xl bg-surface text-base">
-                  🌟
-                </span>
-                Temporada
-              </span>
-
-              <span className="text-textSecondary">›</span>
-            </Link>
+                <span className="text-white/80">›</span>
+              </Link>
+            ))}
           </div>
         </nav>
       </aside>

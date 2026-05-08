@@ -24,23 +24,14 @@ export function Header() {
             Todobarato<span className="text-primaryDark">.com.py</span>
           </Link>
 
-          <div className="flex items-center gap-2 lg:hidden">
-            <Link
-              href="/mayorista"
-              className="rounded-xl bg-cta px-3 py-2 text-xs font-black text-white shadow-sm"
-            >
-              Mayorista
-            </Link>
-
-            <button
-              type="button"
-              className="btn-secondary px-3 py-2"
-              onClick={() => setOpen(true)}
-              aria-label="Abrir categorías"
-            >
-              ☰
-            </button>
-          </div>
+          <button
+            type="button"
+            className="btn-secondary px-3 py-2 lg:hidden"
+            onClick={() => setOpen(true)}
+            aria-label="Abrir categorías"
+          >
+            ☰
+          </button>
         </div>
 
         <form
