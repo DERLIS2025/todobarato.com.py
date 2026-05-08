@@ -1,64 +1,27 @@
-import "server-only";
-
-import { randomUUID } from "crypto";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
-
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads", "banners");
-const PUBLIC_UPLOAD_PATH = "/uploads/banners";
-
-function isFileUpload(value: FormDataEntryValue | null): value is File {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "arrayBuffer" in value &&
-    "name" in value &&
-    "size" in value
-  );
-}
-
-function getExtension(file: File) {
-  const fromName = path.extname(file.name || "").toLowerCase();
-
-  if (fromName && /^[.][a-z0-9]+$/.test(fromName)) {
-    return fromName;
-  }
-
-  if (file.type === "image/png") return ".png";
-  if (file.type === "image/webp") return ".webp";
-  if (file.type === "image/gif") return ".gif";
-
-  return ".jpg";
-}
-
 export async function saveBannerImage(
-  value: FormDataEntryValue | null,
-  fallback?: string | null
+  file: FormDataEntryValue | null,
+  currentImage?: string | null
 ) {
-  if (!isFileUpload(value) || value.size === 0) {
-    return fallback || null;
+  if (!(file instanceof File)) {
+    return currentImage ?? null;
   }
 
-  const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-
-  if (value.type && !allowedTypes.includes(value.type)) {
-    throw new Error("Formato de imagen no permitido.");
+  if (!file.size) {
+    return currentImage ?? null;
   }
 
-  const maxSize = 8 * 1024 * 1024;
-
-  if (value.size > maxSize) {
-    throw new Error("La imagen no debe superar 8MB.");
+  if (!file.type.startsWith("image/")) {
+    throw new Error("El archivo debe ser una imagen.");
   }
 
-  await mkdir(UPLOAD_DIR, { recursive: true });
+  const maxSize = 2 * 1024 * 1024;
 
-  const extension = getExtension(value);
-  const fileName = `${Date.now()}-${randomUUID()}${extension}`;
-  const filePath = path.join(UPLOAD_DIR, fileName);
-  const buffer = Buffer.from(await value.arrayBuffer());
+  if (file.size > maxSize) {
+    throw new Error("La imagen no puede superar 2MB.");
+  }
 
-  await writeFile(filePath, buffer);
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const base64 = buffer.toString("base64");
 
-  return `${PUBLIC_UPLOAD_PATH}/${fileName}`;
+  return `data:${file.type};base64,${base64}`;
 }

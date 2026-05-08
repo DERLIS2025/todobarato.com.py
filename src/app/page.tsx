@@ -5,21 +5,21 @@ import { ProductSection } from "@/components/home/ProductSection";
 import { PromoBanners } from "@/components/home/PromoBanners";
 import { TrustBadges } from "@/components/home/TrustBadges";
 import { getHomeSettings, isEnabled } from "@/lib/admin/homeSettings";
-import { getHeroBanner } from "@/lib/public/heroBanner";
+import { getHeroBanners } from "@/lib/public/heroBanner";
 import { getHomeProductSections } from "@/lib/public/homeProducts";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [settings, heroBanner, productSections] = await Promise.all([
+  const [settings, heroBanners, productSections] = await Promise.all([
     getHomeSettings(),
-    getHeroBanner(),
+    getHeroBanners(),
     getHomeProductSections(),
   ]);
 
   return (
     <>
-      <HeroMarketplace heroBanner={heroBanner} />
+      <HeroMarketplace heroBanners={heroBanners} />
 
       {isEnabled(settings.showPromoBanners) && <PromoBanners />}
 

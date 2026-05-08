@@ -2,9 +2,9 @@ import "server-only";
 
 import { prisma } from "@/lib/db/prisma";
 
-export async function getHeroBanner() {
+export async function getHeroBanners() {
   try {
-    const banner = await prisma.banner.findFirst({
+    const banners = await prisma.banner.findMany({
       where: {
         status: "ACTIVE",
         location: {
@@ -19,9 +19,20 @@ export async function getHeroBanner() {
       },
     });
 
-    return banner;
+    return banners.map((banner) => ({
+      id: banner.id,
+      title: banner.title,
+      image: banner.image,
+      mobileImage: banner.mobileImage,
+      href: banner.href,
+    }));
   } catch (error) {
-    console.error("Error loading hero banner:", error);
-    return null;
+    console.error("Error loading hero banners:", error);
+    return [];
   }
+}
+
+export async function getHeroBanner() {
+  const banners = await getHeroBanners();
+  return banners[0] ?? null;
 }
