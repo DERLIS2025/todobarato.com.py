@@ -19,16 +19,7 @@ export default async function Home() {
 
   return (
     <>
-      <HeroMarketplace
-        eyebrow={settings.heroEyebrow}
-        title={settings.heroTitle}
-        subtitle={settings.heroSubtitle}
-        primaryLabel={settings.heroPrimaryLabel}
-        primaryHref={settings.heroPrimaryHref}
-        secondaryLabel={settings.heroSecondaryLabel}
-        secondaryHref={settings.heroSecondaryHref}
-        heroBanner={heroBanner}
-      />
+      <HeroMarketplace heroBanner={heroBanner} />
 
       {isEnabled(settings.showPromoBanners) && <PromoBanners />}
 
