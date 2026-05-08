@@ -13,14 +13,14 @@ export default function AdminDashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <div className="card p-5">
             <p className="text-sm font-bold text-textSecondary">Estado</p>
-            <strong className="mt-2 block text-2xl font-black">Admin activo</strong>
-            <p className="mt-2 text-xs font-bold text-primary">Fase 2 en desarrollo</p>
+            <strong className="mt-2 block text-2xl font-black">Admin protegido</strong>
+            <p className="mt-2 text-xs font-bold text-primary">Autenticación activa</p>
           </div>
 
           <div className="card p-5">
             <p className="text-sm font-bold text-textSecondary">Base de datos</p>
-            <strong className="mt-2 block text-2xl font-black">Prisma</strong>
-            <p className="mt-2 text-xs font-bold text-primary">Conexión local</p>
+            <strong className="mt-2 block text-2xl font-black">Prisma + Supabase</strong>
+            <p className="mt-2 text-xs font-bold text-primary">Producción activa</p>
           </div>
         </div>
       </AdminPageShell>
