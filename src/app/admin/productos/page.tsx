@@ -222,7 +222,7 @@ export default async function AdminProductsPage({ searchParams }: PageProps) {
                   <th className="px-4 py-3 font-black">Estado</th>
                   <th className="px-4 py-3 font-black">Badges</th>
                   <th className="px-4 py-3 font-black">Creado</th>
-                  <th className="px-4 py-3 font-black">Acciones</th>
+                  <th className="sticky right-0 bg-surface px-4 py-3 font-black shadow-[-8px_0_16px_-14px_rgba(15,23,42,0.35)]">Acciones</th>
                 </tr>
               </thead>
 
@@ -291,7 +291,7 @@ export default async function AdminProductsPage({ searchParams }: PageProps) {
                       {formatDate(product.createdAt)}
                     </td>
 
-                    <td className="px-4 py-3">
+                    <td className="sticky right-0 bg-white px-4 py-3 shadow-[-8px_0_16px_-14px_rgba(15,23,42,0.25)]">
                       <div className="flex gap-2">
                         <Link
                           href={`/admin/productos/${product.id}/editar`}
