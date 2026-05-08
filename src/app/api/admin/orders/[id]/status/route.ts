@@ -10,14 +10,16 @@ const ALLOWED_STATUSES = [
   "CANCELLED",
 ];
 
-function getRedirectUrl(request: Request, orderId: string) {
+function getRedirectUrl(request: Request, orderId: string, returnTo: string) {
   const referer = request.headers.get("referer");
   const origin = request.headers.get("origin");
-
   const baseUrl = referer || origin || request.url;
-  const url = new URL(`/admin/pedidos/${orderId}`, baseUrl);
 
-  return url;
+  const safeReturnTo = returnTo.startsWith("/admin/pedidos")
+    ? returnTo
+    : `/admin/pedidos/${orderId}`;
+
+  return new URL(safeReturnTo, baseUrl);
 }
 
 export async function POST(
@@ -26,9 +28,11 @@ export async function POST(
 ) {
   const { id } = await params;
   const formData = await request.formData();
-  const status = String(formData.get("status") ?? "");
 
-  const redirectUrl = getRedirectUrl(request, id);
+  const status = String(formData.get("status") ?? "");
+  const returnTo = String(formData.get("returnTo") ?? "");
+
+  const redirectUrl = getRedirectUrl(request, id, returnTo);
 
   if (!ALLOWED_STATUSES.includes(status)) {
     redirectUrl.searchParams.set("error", "invalid-status");
