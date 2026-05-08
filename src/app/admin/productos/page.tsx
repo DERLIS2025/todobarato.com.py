@@ -188,6 +188,10 @@ export default async function AdminProductsPage({ searchParams }: PageProps) {
             Filtrar
           </button>
 
+          <Link href="/admin/productos/importar" className="btn-secondary text-center">
+            Importar productos
+          </Link>
+
           <Link href="/admin/productos/nuevo" className="btn-cta text-center">
             Nuevo producto
           </Link>
