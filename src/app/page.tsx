@@ -2,15 +2,12 @@ import { DealOfTheDay } from "@/components/home/DealOfTheDay";
 import { HeroMarketplace } from "@/components/home/HeroMarketplace";
 import { Newsletter } from "@/components/home/Newsletter";
 import { ProductSection } from "@/components/home/ProductSection";
-import { PromoBanners } from "@/components/home/PromoBanners";
 import { TrustBadges } from "@/components/home/TrustBadges";
 import { getHomeSettings, isEnabled } from "@/lib/admin/homeSettings";
 import { getHeroBanners } from "@/lib/public/heroBanner";
 import { getHomeProductSections } from "@/lib/public/homeProducts";
 
 export const revalidate = 300;
-
-
 
 export default async function Home() {
   const [settings, heroBanners, productSections] = await Promise.all([
@@ -21,9 +18,16 @@ export default async function Home() {
 
   return (
     <>
-      <HeroMarketplace heroBanners={heroBanners} />
-
-      {isEnabled(settings.showPromoBanners) && <PromoBanners />}
+      <HeroMarketplace
+        eyebrow={settings.heroEyebrow}
+        title={settings.heroTitle}
+        subtitle={settings.heroSubtitle}
+        primaryLabel={settings.heroPrimaryLabel}
+        primaryHref={settings.heroPrimaryHref}
+        secondaryLabel={settings.heroSecondaryLabel}
+        secondaryHref={settings.heroSecondaryHref}
+        heroBanners={heroBanners}
+      />
 
       {isEnabled(settings.showTrustBadges) && <TrustBadges />}
 

@@ -17,15 +17,18 @@ export async function getHeroBanners() {
       orderBy: {
         order: "asc",
       },
+      select: {
+        id: true,
+        title: true,
+        text: true,
+        href: true,
+        image: true,
+        mobileImage: true,
+        ctaLabel: true,
+      },
     });
 
-    return banners.map((banner) => ({
-      id: banner.id,
-      title: banner.title,
-      image: banner.image,
-      mobileImage: banner.mobileImage,
-      href: banner.href,
-    }));
+    return banners;
   } catch (error) {
     console.error("Error loading hero banners:", error);
     return [];
