@@ -61,6 +61,9 @@ model Product {
 
   isNew           Boolean       @default(false)
   featured        Boolean       @default(false)
+  isWholesale     Boolean       @default(false)
+  wholesalePrice  Int?
+  wholesaleMinQty Int           @default(3)
   status          ProductStatus @default(ACTIVE)
 
   seoTitle        String?
@@ -144,6 +147,7 @@ model Order {
   customerId     String?
   customer       Customer?   @relation(fields: [customerId], references: [id], onDelete: SetNull)
   status         String      @default("NEW")
+  orderType      String      @default("RETAIL")
   paymentMethod  String?
   deliveryMethod String?
   subtotal       Int         @default(0)

@@ -12,4 +12,9 @@ export const adminNavigation = [
   { label: "SEO", href: "/admin/seo", icon: "🔎" },
   { label: "Configuración", href: "/admin/configuracion", icon: "⚙️" },
   { label: "Usuarios", href: "/admin/usuarios", icon: "🔐" },
+  {
+    label: "Mayorista",
+    href: "/admin/mayorista",
+    icon: "🏷️",
+  },
 ];

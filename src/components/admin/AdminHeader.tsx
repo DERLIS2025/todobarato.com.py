@@ -40,6 +40,7 @@ export function AdminHeader() {
           ["Categorías", "/admin/categorias"],
           ["Banners", "/admin/banners"],
           ["Home", "/admin/home"],
+          ["Mayorista", "/admin/mayorista"],
         ].map(([label, href]) => (
           <Link
             key={href}

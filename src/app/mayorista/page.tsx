@@ -1,11 +1,13 @@
 import Link from "next/link";
+import { ProductStatus } from "@/generated/prisma/client";
+import { WholesaleHeroSlider } from "@/components/mayorista/WholesaleHeroSlider";
 import { prisma } from "@/lib/db/prisma";
 import { site } from "@/lib/constants";
-import { ProductStatus } from "@/generated/prisma/client";
 
 export const dynamic = "force-dynamic";
 
-function formatPrice(value: number) {
+function formatPrice(value?: number | null) {
+  if (!value) return "Consultar";
   return new Intl.NumberFormat("es-PY", {
     style: "currency",
     currency: "PYG",
@@ -13,77 +15,53 @@ function formatPrice(value: number) {
   }).format(value);
 }
 
-function getWhatsAppHref(productName?: string) {
+function getWhatsAppHref(productName?: string, minQty?: number | null) {
   const phone = site.phone.replace(/\D/g, "");
   const message = productName
-    ? `Hola, quiero consultar precio mayorista para este producto: ${productName}. Compra desde 3 unidades.`
-    : "Hola, quiero consultar productos con precio mayorista desde 3 unidades.";
+    ? `Hola, quiero consultar precio mayorista para: ${productName}. Cantidad mínima: ${minQty ?? 3} unidades.`
+    : "Hola, quiero consultar productos mayoristas.";
 
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
 
 export default async function WholesalePage() {
-  const products = await prisma.product.findMany({
-    where: {
-      status: ProductStatus.ACTIVE,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    include: {
-      category: true,
-    },
-    take: 24,
-  });
+  const [banners, products] = await Promise.all([
+    prisma.banner.findMany({
+      where: {
+        status: "ACTIVE",
+        location: "mayorista-hero",
+        image: {
+          not: null,
+        },
+      },
+      orderBy: {
+        order: "asc",
+      },
+      select: {
+        id: true,
+        title: true,
+        image: true,
+        mobileImage: true,
+        href: true,
+      },
+    }),
+
+    prisma.product.findMany({
+      where: {
+        status: ProductStatus.ACTIVE,
+        isWholesale: true,
+      },
+      orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
+      include: {
+        category: true,
+      },
+      take: 48,
+    }),
+  ]);
 
   return (
-    <main className="container-page py-8">
-      <section className="overflow-hidden rounded-3xl bg-primaryDark p-8 text-white shadow-soft lg:p-10">
-        <p className="text-xs font-black uppercase tracking-[0.18em] text-promo">
-          Compra por volumen
-        </p>
-
-        <div className="mt-3 grid gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
-          <div>
-            <h1 className="max-w-3xl text-4xl font-black leading-tight lg:text-5xl">
-              Sección mayorista
-            </h1>
-
-            <p className="mt-4 max-w-2xl text-white/80">
-              Accedé a precios especiales comprando desde 3 unidades. Ideal para
-              negocios, revendedores, regalos corporativos, eventos y compras por
-              volumen.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white/10 p-5">
-            <p className="text-sm font-bold text-white/80">
-              Condición mayorista
-            </p>
-            <strong className="mt-2 block text-2xl font-black text-promo">
-              Desde 3 unidades
-            </strong>
-            <p className="mt-2 text-sm text-white/70">
-              El precio final se confirma según producto, cantidad y disponibilidad.
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href={getWhatsAppHref()}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-cta"
-          >
-            Consultar por WhatsApp
-          </a>
-
-          <Link href="/ofertas" className="rounded-xl bg-white px-5 py-3 font-black text-primaryDark">
-            Ver ofertas
-          </Link>
-        </div>
-      </section>
+    <main className="container-page py-6 md:py-8">
+      <WholesaleHeroSlider banners={banners} />
 
       <section className="mt-8">
         <div className="flex flex-wrap items-end justify-between gap-3">
@@ -91,83 +69,108 @@ export default async function WholesalePage() {
             <p className="text-xs font-black uppercase tracking-[0.16em] text-cta">
               Catálogo mayorista
             </p>
-            <h2 className="mt-1 text-2xl font-black text-primaryDark">
-              Productos disponibles para compra por volumen
-            </h2>
+
+            <h1 className="mt-1 text-2xl font-black text-primaryDark md:text-3xl">
+              Productos con precio mayorista
+            </h1>
+
+            <p className="mt-2 max-w-2xl text-sm text-textSecondary">
+              Comprá por volumen con precios especiales. La cantidad mínima se
+              define por producto.
+            </p>
           </div>
 
-          <p className="text-sm font-bold text-textSecondary">
-            Precio mayorista desde 3 unidades
-          </p>
+          <a
+            href={getWhatsAppHref()}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary"
+          >
+            Consultar por WhatsApp
+          </a>
         </div>
 
-        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((product) => (
-            <article
-              key={product.id}
-              className="overflow-hidden rounded-2xl border border-borderSoft bg-white shadow-soft"
-            >
-              <Link href={`/producto/${product.slug}`} className="block">
-                {product.image ? (
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="h-52 w-full object-cover"
-                  />
-                ) : (
-                  <div className="grid h-52 place-items-center bg-surface text-sm font-bold text-textSecondary">
-                    Sin imagen
+        {products.length > 0 ? (
+          <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:gap-5">
+            {products.map((product) => {
+              const wholesalePrice = product.wholesalePrice || product.price;
+              const minQty = product.wholesaleMinQty || 3;
+
+              return (
+                <article
+                  key={product.id}
+                  className="overflow-hidden rounded-2xl border border-borderSoft bg-white shadow-soft transition hover:-translate-y-0.5"
+                >
+                  <Link href={`/producto/${product.slug}`} className="block">
+                    {product.image ? (
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="aspect-square w-full object-cover"
+                      />
+                    ) : (
+                      <div className="grid aspect-square place-items-center bg-surface text-xs font-bold text-textSecondary">
+                        Sin imagen
+                      </div>
+                    )}
+                  </Link>
+
+                  <div className="p-3 md:p-4">
+                    <p className="text-[10px] font-black uppercase text-textSecondary md:text-xs">
+                      {product.brand ?? "Marca"} · {product.category.name}
+                    </p>
+
+                    <Link
+                      href={`/producto/${product.slug}`}
+                      className="mt-1 line-clamp-2 block min-h-[40px] text-sm font-black text-primaryDark hover:text-primary md:text-base"
+                    >
+                      {product.name}
+                    </Link>
+
+                    <div className="mt-3 rounded-xl bg-surface p-3">
+                      <p className="text-[10px] font-bold uppercase text-textSecondary md:text-xs">
+                        Precio mayorista
+                      </p>
+
+                      <strong className="mt-1 block text-lg font-black text-primary md:text-xl">
+                        {formatPrice(wholesalePrice)}
+                      </strong>
+
+                      <p className="mt-1 text-[11px] font-bold text-primaryDark/70 md:text-xs">
+                        Desde {minQty} unidades
+                      </p>
+                    </div>
+
+                    {product.price > wholesalePrice && (
+                      <p className="mt-2 text-xs text-textSecondary">
+                        Minorista:{" "}
+                        <span className="line-through">
+                          {formatPrice(product.price)}
+                        </span>
+                      </p>
+                    )}
+
+                    <a
+                      href={getWhatsAppHref(product.name, minQty)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-3 block rounded-xl bg-primary px-3 py-2 text-center text-xs font-black text-white md:text-sm"
+                    >
+                      Consultar
+                    </a>
                   </div>
-                )}
-              </Link>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="mt-6 rounded-3xl border border-borderSoft bg-white p-8 text-center shadow-soft">
+            <h2 className="text-xl font-black text-primaryDark">
+              Todavía no hay productos mayoristas activos.
+            </h2>
 
-              <div className="p-4">
-                <p className="text-xs font-black uppercase text-textSecondary">
-                  {product.brand ?? "Marca"} · {product.category.name}
-                </p>
-
-                <Link
-                  href={`/producto/${product.slug}`}
-                  className="mt-2 block min-h-12 font-black text-primaryDark hover:text-primary"
-                >
-                  {product.name}
-                </Link>
-
-                <div className="mt-3 rounded-xl bg-surface p-3">
-                  <p className="text-xs font-bold text-textSecondary">
-                    Precio minorista
-                  </p>
-                  <strong className="mt-1 block text-xl font-black text-primary">
-                    {formatPrice(product.price)}
-                  </strong>
-                </div>
-
-                <div className="mt-3 rounded-xl border border-promo bg-promo/20 p-3">
-                  <p className="text-xs font-black uppercase text-primaryDark">
-                    Mayorista desde 3 unidades
-                  </p>
-                  <p className="mt-1 text-sm font-bold text-primaryDark/70">
-                    Consultar precio especial
-                  </p>
-                </div>
-
-                <a
-                  href={getWhatsAppHref(product.name)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-primary mt-4 block text-center"
-                >
-                  Consultar mayorista
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {!products.length && (
-          <div className="mt-6 rounded-2xl border border-borderSoft bg-white p-10 text-center shadow-soft">
-            <p className="font-bold text-textSecondary">
-              Todavía no hay productos activos para mostrar.
+            <p className="mt-2 text-sm text-textSecondary">
+              Activá productos desde Admin → Mayorista → Productos mayoristas.
             </p>
           </div>
         )}
