@@ -8,7 +8,7 @@ import { getHomeSettings, isEnabled } from "@/lib/admin/homeSettings";
 import { getHeroBanners } from "@/lib/public/heroBanner";
 import { getHomeProductSections } from "@/lib/public/homeProducts";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function Home() {
   const [settings, heroBanners, productSections] = await Promise.all([

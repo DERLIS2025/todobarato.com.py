@@ -4,7 +4,7 @@ import { WholesaleHeroSlider } from "@/components/mayorista/WholesaleHeroSlider"
 import { prisma } from "@/lib/db/prisma";
 import { site } from "@/lib/constants";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 function formatPrice(value?: number | null) {
   if (!value) return "Consultar";
