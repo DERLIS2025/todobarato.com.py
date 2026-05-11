@@ -2,7 +2,9 @@ import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { getPublicProductsByCategorySlug } from "@/lib/public/products";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
+
+
 
 export default async function CategoryPage({
   params,

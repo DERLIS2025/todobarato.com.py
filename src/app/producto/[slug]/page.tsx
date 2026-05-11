@@ -2,7 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPublicProductBySlug } from "@/lib/public/products";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
+
+
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("es-PY", {

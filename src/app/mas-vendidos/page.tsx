@@ -1,7 +1,9 @@
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { getPublicProducts } from "@/lib/public/products";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
+
+
 
 export default async function BestSellersPage() {
   const products = await getPublicProducts({
