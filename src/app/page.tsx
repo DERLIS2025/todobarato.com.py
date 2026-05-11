@@ -7,6 +7,12 @@ import { getHomeSettings, isEnabled } from "@/lib/admin/homeSettings";
 import { getHeroBanners } from "@/lib/public/heroBanner";
 import { getHomeProductSections } from "@/lib/public/homeProducts";
 
+export const metadata = {
+  title: "Home | Todopromo.com.py",
+  description:
+    "Tienda online Todopromo.com.py con ofertas, productos para el hogar, bazar, electrónica y sección mayorista.",
+};
+
 export const revalidate = 300;
 
 export default async function Home() {
