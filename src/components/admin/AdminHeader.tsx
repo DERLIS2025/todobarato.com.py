@@ -9,7 +9,7 @@ export function AdminHeader() {
             Panel Administrativo
           </p>
           <h1 className="text-xl font-black text-primaryDark">
-            Gestión de Todobarato.com.py
+            Gestión de Todopromo.com.py
           </h1>
         </div>
 

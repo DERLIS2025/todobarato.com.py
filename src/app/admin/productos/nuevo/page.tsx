@@ -15,7 +15,7 @@ export default async function NewProductPage() {
     <AdminLayout>
       <AdminPageShell
         title="Nuevo producto"
-        description="Creá un producto real en la base de datos de Todobarato.com.py."
+        description="Creá un producto real en la base de datos de Todopromo.com.py."
       >
         <form
           action="/api/admin/products"

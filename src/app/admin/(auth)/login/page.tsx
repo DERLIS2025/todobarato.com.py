@@ -19,7 +19,7 @@ export default async function AdminLoginPage({
         </h1>
 
         <p className="mt-2 text-sm text-textSecondary">
-          Ingresá con tu usuario administrador para gestionar Todobarato.com.py.
+          Ingresá con tu usuario administrador para gestionar Todopromo.com.py.
         </p>
 
         {error && (

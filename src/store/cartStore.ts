@@ -10,4 +10,4 @@ export const useCartStore = create<CartState>()(persist((set, get) => ({
  remove: (id) => set((s) => ({ items: s.items.filter(i=>i.product.id!==id) })),
  setQty: (id, quantity) => set((s) => ({ items: s.items.map(i=>i.product.id===id?{...i, quantity:Math.max(1,quantity)}:i) })),
  clear: () => set({ items: [] }), count: () => get().items.reduce((a,i)=>a+i.quantity,0), subtotal: () => get().items.reduce((a,i)=>a+i.product.price*i.quantity,0)
-}), { name: "todobarato-cart" }));
+}), { name: "todopromo-cart" }));

@@ -43,7 +43,7 @@ export function mapPrismaProductToStoreProduct(
     name: product.name,
     title: product.name,
     slug: product.slug,
-    brand: product.brand ?? "Todobarato",
+    brand: product.brand ?? "Todopromo",
     sku: product.sku ?? "",
     category: product.category.slug,
     categorySlug: product.category.slug,

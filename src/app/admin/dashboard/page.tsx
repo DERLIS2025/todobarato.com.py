@@ -8,7 +8,7 @@ export default function AdminDashboardPage() {
     <AdminLayout>
       <AdminPageShell
         title="Dashboard"
-        description="Panel administrativo de Todobarato.com.py conectado a la estructura real del ecommerce."
+        description="Panel administrativo de Todopromo.com.py conectado a la estructura real del ecommerce."
       >
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <div className="card p-5">

@@ -1,4 +1,4 @@
-# Todobarato.com.py
+# Todopromo.com.py
 
 Primera versión navegable de un ecommerce marketplace multicategoría construido desde cero con Next.js App Router, TypeScript, Tailwind CSS y Zustand.
 

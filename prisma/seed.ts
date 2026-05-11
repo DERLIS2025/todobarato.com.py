@@ -148,7 +148,7 @@ async function main() {
     update: {},
     create: {
       key: "storeName",
-      value: "Todobarato.com.py",
+      value: "Todopromo.com.py",
     },
   });
 

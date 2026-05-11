@@ -1,4 +1,4 @@
-// Prisma schema for Todobarato.com.py admin database
+// Prisma schema for Todopromo.com.py admin database
 
 generator client {
   provider = "prisma-client"

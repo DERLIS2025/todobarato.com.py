@@ -6,7 +6,7 @@ export function AdminSidebar() {
     <aside className="hidden min-h-screen w-72 border-r border-borderSoft bg-primaryDark text-white lg:block">
       <div className="border-b border-white/10 p-6">
         <Link href="/admin/dashboard" className="text-2xl font-black">
-          Todobarato Admin
+          Todopromo Admin
         </Link>
         <p className="mt-1 text-xs text-white/60">Back Office Ecommerce</p>
       </div>

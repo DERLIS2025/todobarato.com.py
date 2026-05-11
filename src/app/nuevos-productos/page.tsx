@@ -23,7 +23,7 @@ export default async function NewProductsPage() {
           Nuevos productos
         </h1>
         <p className="mt-2 max-w-2xl text-textSecondary">
-          Productos recientemente cargados en Todobarato.com.py.
+          Productos recientemente cargados en Todopromo.com.py.
         </p>
       </div>
 

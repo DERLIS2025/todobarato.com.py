@@ -52,14 +52,14 @@ export const adminCustomers = [
 ];
 
 export const adminUsers = [
-  { name: "Administrador", email: "admin@todobarato.com.py", role: "Super Admin", status: "Activo" },
-  { name: "Catálogo", email: "catalogo@todobarato.com.py", role: "Editor de catálogo", status: "Activo" },
+  { name: "Administrador", email: "admin@todopromo.com.py", role: "Super Admin", status: "Activo" },
+  { name: "Catálogo", email: "catalogo@todopromo.com.py", role: "Editor de catálogo", status: "Activo" },
 ];
 
 export const adminSettings = {
-  storeName: "Todobarato.com.py",
+  storeName: "Todopromo.com.py",
   phone: "+595 981 000 000",
-  email: "ventas@todobarato.com.py",
+  email: "ventas@todopromo.com.py",
   address: "Asunción, Paraguay",
   topMessage: "Envíos a todo Paraguay · Retiro en tienda",
   coupon: "BARATO10",

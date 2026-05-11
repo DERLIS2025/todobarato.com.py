@@ -21,7 +21,7 @@ export function Header() {
       <div className="container-page grid gap-3 py-4 lg:grid-cols-[260px_1fr_250px] lg:items-center">
         <div className="flex items-center justify-between gap-3">
           <Link href="/" className="text-2xl font-black text-primary">
-            Todobarato<span className="text-primaryDark">.com.py</span>
+            Todopromo<span className="text-primaryDark">.com.py</span>
           </Link>
 
           <button
