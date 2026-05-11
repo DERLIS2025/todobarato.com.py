@@ -1,8 +1,25 @@
 import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { getPublicProductsByCategorySlug } from "@/lib/public/products";
+import { prisma } from "@/lib/db/prisma";
 
 export const revalidate = 300;
+
+export async function generateStaticParams() {
+  const categories = await prisma.category.findMany({
+    where: {
+      isActive: true,
+    },
+    select: {
+      slug: true,
+    },
+  });
+
+  return categories.map((category) => ({
+    slug: category.slug,
+  }));
+}
+
 
 
 

@@ -1,8 +1,26 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPublicProductBySlug } from "@/lib/public/products";
+import { ProductStatus } from "@/generated/prisma/client";
+import { prisma } from "@/lib/db/prisma";
 
 export const revalidate = 300;
+
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany({
+    where: {
+      status: ProductStatus.ACTIVE,
+    },
+    select: {
+      slug: true,
+    },
+  });
+
+  return products.map((product) => ({
+    slug: product.slug,
+  }));
+}
+
 
 
 
